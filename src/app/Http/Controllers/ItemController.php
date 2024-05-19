@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Category;
+
 
 class ItemController extends Controller
 {
@@ -13,11 +15,36 @@ class ItemController extends Controller
         return view('detail', compact('item'));
     }
 
-    // お気に入りボタンの切り替え
-    public function toggleFavorite(Request $request, Item $item)
+    public function create()
     {
-        $user = $request->user();
-        $user->favorites()->toggle($item);
-        return back();
+        $categories = Category::all();
+        return view('items.create', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|integer',
+            'category' => 'required|array',
+            'condition' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imagePath = $request->file('image')->store('images', 'public');
+
+        $item = Item::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'condition' => $request->condition,
+            'image' => $imagePath,
+        ]);
+
+        $item->categories()->sync($request->category);
+
+        return redirect()->route('items.create')->with('success', '出品しました');
     }
 }

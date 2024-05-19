@@ -22,7 +22,7 @@
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
         <a href="{{ route('login') }}">ログイン</a>
         <a href="{{ route('register') }}">会員登録</a>
-        <a href="">出品する</a>
+        <a href="{{ route('items.create')}}">出品する</a>
       </form>
       @endif
 
@@ -32,7 +32,7 @@
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
         <a href="">マイページ</a>
-        <a href="">出品する</a>
+        <a href="{{ route('items.create')}}">出品する</a>
       </form>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf

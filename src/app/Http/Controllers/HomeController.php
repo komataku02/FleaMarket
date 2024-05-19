@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
 
-        $items = Item::getAllItems();
+        $items = Item::all();
 
-        return view('index', compact('items'));
+        $favorites = Auth::check() ? Auth::user()->favorites : null;
+
+        return view('index', compact('items', 'favorites'));
     }
 }

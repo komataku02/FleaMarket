@@ -4,12 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'category', 'condition', 'user_id'];
+    protected $fillable = [
+        'user_id',
+        'name',
+        'description',
+        'price',
+        'condition',
+        'image',];
+
+    protected $appends = ['is_favorite'];
 
     // 商品一覧を取得するメソッド
     public static function getAllItems()
@@ -30,5 +39,20 @@ class Item extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function getIsFavoriteAttribute()
+    {
+        return $this->favorites()->where('user_id', Auth::id())->exists();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'item_category');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
