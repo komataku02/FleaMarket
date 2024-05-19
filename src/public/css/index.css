@@ -1,0 +1,19 @@
+/* タブのスタイル */
+.tabs {
+  display: flex;
+  list-style: none;
+}
+
+.tabs li {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* 非表示状態 */
+.hidden {
+  display: none;
+}
+
+.tabs li.active {
+  color: red;
+}
