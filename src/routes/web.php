@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/my_items', [FavoriteController::class, 'index'])->name('favorites');
@@ -30,3 +31,6 @@ Route::post('/detail/comment/{item_id}', [CommentController::class, 'store'])->n
 
 Route::get('/display_item', [ItemController::class, 'create'])->name('items.create')->middleware('auth');
 Route::post('/display_item', [ItemController::class, 'store'])->name('items.store');
+
+Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
+Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
