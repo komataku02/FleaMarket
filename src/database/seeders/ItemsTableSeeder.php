@@ -64,7 +64,7 @@ class ItemsTableSeeder extends Seeder
             'user_id' => 1,
             'name' => '雑誌',
             'description' => '週刊誌',
-            'price' => 30,
+            'price' => 1000,
             'condition' => '全体的に状態が悪い'
         ];
         DB::table('items')->insert($param);
