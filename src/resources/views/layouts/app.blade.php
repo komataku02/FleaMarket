@@ -22,7 +22,7 @@
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
         <a href="{{ route('login') }}">ログイン</a>
         <a href="{{ route('register') }}">会員登録</a>
-        <a href="{{ route('items.create')}}">出品する</a>
+        <a href="{{ route('items.create') }}">出品する</a>
       </form>
       @endif
 
@@ -31,8 +31,14 @@
       <form action="{{ route('login') }}" method="GET">
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-        <a href="">マイページ</a>
-        <a href="{{ route('items.create')}}">出品する</a>
+        <a href="{{ route('mypage.index') }}">マイページ</a>
+        <a href="{{ route('items.create') }}">出品する</a>
+        <a href="{{ route('cart.index') }}">
+          カート
+          @if(\App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+          <span class="badge badge-pill badge-danger">{{ \App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
+          @endif
+        </a>
       </form>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
@@ -43,6 +49,5 @@
   <main>
     @yield('content')
   </main>
-</body>
 
 </html>

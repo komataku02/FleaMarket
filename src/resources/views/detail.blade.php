@@ -5,33 +5,66 @@
 @endsection
 
 @section('content')
-<div class="category__alert">
+<div class="container">
   @if (session('message'))
-  <div class="category__alert--success">
+  <div class="alert alert-success">
     {{ session('message') }}
   </div>
   @endif
-  <div class="container">
-    <div class="card-header">{{ $item->name }}</div>
 
+  <div class="card mb-3">
+    <div class="card-header">
+      {{ $item->name }}
+    </div>
     <div class="card-body">
       <p>商品説明: {{ $item->description }}</p>
       <p>価格: {{ $item->price }}円</p>
       <p>カテゴリー: {{ $item->category }}</p>
       <p>商品の状態: {{ $item->condition }}</p>
-      @if ($item->favorites()->where('user_id', auth()->id())->exists())
-      <form action="{{ route('items.unfavorite', $item->id) }}" method="POST">
+      <form action="{{ route('cart.add', $item->id) }}" method="POST">
         @csrf
-        <button type="submit" class="btn-unfavorite">お気に入り解除</button>
+        <button type="submit" class="btn btn-primary">カートに入れる</button>
       </form>
-      @else
-      <form action="{{ route('items.favorite', $item->id) }}" method="POST">
-        @csrf
-        <button type="submit" class="btn-favorite">お気に入り追加</button>
-      </form>
-      @endif
+    </div>
+  </div>
 
-      <a href="{{ route('comments.show', $item->id) }}" class="btn-comment">コメントを見る</a>
+  <!-- コメントセクション -->
+  <div class="card mt-3">
+    <div class="card-header">コメント</div>
+    <div class="card-body">
+      <div class="chat-box" style="max-height: 300px; overflow-y: scroll;">
+        @foreach($item->comments as $comment)
+        <div class="mb-2 d-flex align-items-center">
+          @if ($comment->user->profile && $comment->user->profile->profile_image_path)
+          <img src="{{ Storage::url($comment->user->profile->profile_image_path) }}" alt="プロフィール画像" class="mr-2" style="width: 24px; height: 24px; border-radius: 50%;">
+          @endif
+          <strong>{{ $comment->user->name }}</strong> {{ $comment->comment }}
+          <!-- 削除ボタンを追加 -->
+          @if(Auth::id() === $comment->user_id)
+          <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="ml-3">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+          </form>
+          @endif
+        </div>
+        @endforeach
+      </div>
+
+      @auth
+      <form action="{{ route('comments.store', $item->id) }}" method="POST" class="mt-3">
+        @csrf
+        <div class="form-group">
+          <p>商品へのコメント</p>
+          <textarea name="comment" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">コメント送信</button>
+      </form>
+      @endauth
+
+      @guest
+      <p>コメントするには<a href="{{ route('login') }}">ログイン</a>が必要です。</p>
+      @endguest
     </div>
   </div>
 </div>

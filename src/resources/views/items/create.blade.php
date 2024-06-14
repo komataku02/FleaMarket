@@ -37,13 +37,40 @@
     </div>
 
     <div class="form-group">
-      <label for="category">カテゴリー</label>
-      <select name="category[]" class="form-control" >
+      <label for="category1">カテゴリー1 (必須)</label>
+      <select name="categories[]" class="form-control" required>
+        <option value="">選択してください</option>
         @foreach($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->category }}</option>
+        <option value="{{ $category->id }}" {{ old('categories.0') == $category->id ? 'selected' : '' }}>{{ $category->category }}</option>
         @endforeach
       </select>
-      @error('category')
+      @error('categories.0')
+      <small class="text-danger">{{ $message }}</small>
+      @enderror
+    </div>
+
+    <div class="form-group">
+      <label for="category2">カテゴリー2 (任意)</label>
+      <select name="categories[]" class="form-control">
+        <option value="">選択してください</option>
+        @foreach($categories as $category)
+        <option value="{{ $category->id }}" {{ old('categories.1') == $category->id ? 'selected' : '' }}>{{ $category->category }}</option>
+        @endforeach
+      </select>
+      @error('categories.1')
+      <small class="text-danger">{{ $message }}</small>
+      @enderror
+    </div>
+
+    <div class="form-group">
+      <label for="category3">カテゴリー3 (任意)</label>
+      <select name="categories[]" class="form-control">
+        <option value="">選択してください</option>
+        @foreach($categories as $category)
+        <option value="{{ $category->id }}" {{ old('categories.2') == $category->id ? 'selected' : '' }}>{{ $category->category }}</option>
+        @endforeach
+      </select>
+      @error('categories.2')
       <small class="text-danger">{{ $message }}</small>
       @enderror
     </div>
