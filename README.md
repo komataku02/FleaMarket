@@ -60,7 +60,7 @@ Laravel環境構築
 
 ![フリマ](https://github.com/komataku02/FleaMarket/assets/142297650/21e3f2b2-5f10-4ca4-a684-4d612a61e583)
 
-##アカウントの種類
+##アカウントの種類  
 管理者（AdminUser）  
 メールアドレス：admin@example.com  
 パスワード：password  
