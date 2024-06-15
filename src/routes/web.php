@@ -13,6 +13,7 @@ use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/my_items', [FavoriteController::class, 'index'])->name('favorites');
@@ -25,8 +26,6 @@ Route::post('/register', [AuthController::class,'register']);
 
 Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
-Route::get('/items', [ItemController::class, 'index'])->name('items');
-
 Route::get('/detail/{id}', [ItemController::class, 'show'])->name('items.show');
 
 Route::post('/detail/{id}/favorite', [FavoriteController::class, 'Favorite'])->name('items.favorite')->middleware('auth');
@@ -38,12 +37,6 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->nam
 
 Route::get('/display_item', [ItemController::class, 'create'])->name('items.create')->middleware('auth');
 Route::post('/display_item', [ItemController::class, 'store'])->name('items.store');
-
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{itemId}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-
 
 Route::middleware('auth')->group(function () {
   Route::get('/mypage/profile_change', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -70,4 +63,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
   Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
   Route::get('/admin/items', [AdminController::class, 'items'])->name('admin.items');
   Route::get('/admin/payments', [AdminController::class, 'payments'])->name('admin.payments');
+  Route::post('/admin/users/{user}/grant-admin', [AdminController::class, 'grantAdmin'])->name('admin.grantAdmin');
+  Route::post('/admin/users/{user}/revoke-admin', [AdminController::class, 'revokeAdmin'])->name('admin.revokeAdmin');
+  Route::get('/admin/email', [MailController::class, 'showEmailForm'])->name('admin.emailForm');
+  Route::post('/admin/send-email', [MailController::class, 'sendEmail'])->name('admin.sendEmail');
 });

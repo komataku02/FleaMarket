@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +14,7 @@ class CartController extends Controller
         return view('cart.index', compact('carts'));
     }
 
-    public function addToCart(Request $request, $itemId)
+    public function addToCart( $itemId)
     {
         $userId = Auth::id();
         $item = Item::findOrFail($itemId);
@@ -51,7 +50,6 @@ class CartController extends Controller
             return redirect()->route('cart.index')->with('error', 'カートに商品がありません。');
         }
 
-        // カート内の最初のアイテムを購入処理に渡す
         $item = $carts->first()->item;
         $price = $carts->sum(function ($cart) {
             return $cart->item->price * $cart->quantity;

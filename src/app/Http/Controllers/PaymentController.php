@@ -22,7 +22,7 @@ class PaymentController extends Controller
         $item = Item::findOrFail($itemId);
         $price = $item->price;
 
-        // セッションから支払い方法を取得
+
         $paymentMethod = session('payment_method', $request->input('payment_method'));
 
         if ($paymentMethod === 'credit_card') {
@@ -38,11 +38,10 @@ class PaymentController extends Controller
                 return back()->with('error', '決済に失敗しました！(' . $e->getMessage() . ')');
             }
         } elseif ($paymentMethod === 'bank_transfer') {
-            // 銀行口座引き落としの処理をここに追加
+
             $bankAccountNumber = $request->input('bank_account_number');
             $bankRoutingNumber = $request->input('bank_routing_number');
 
-            // ダミーの成功メッセージ
             if (!$bankAccountNumber || !$bankRoutingNumber) {
                 return back()->with('error', '銀行口座情報が不足しています！');
             }
@@ -60,7 +59,7 @@ class PaymentController extends Controller
 
     public function selectPaymentMethod(Request $request)
     {
-        // itemIdとpriceをセッションに保存
+
         Session::put('item_id', $request->input('itemId'));
         Session::put('price', $request->input('price'));
 
@@ -75,7 +74,6 @@ class PaymentController extends Controller
 
         session(['payment_method' => $request->payment_method]);
 
-        // itemIdとpriceをセッションから取得してリダイレクトに使用
         $itemId = session('item_id');
         $price = session('price');
 

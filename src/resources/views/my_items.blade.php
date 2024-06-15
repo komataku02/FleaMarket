@@ -6,13 +6,13 @@
 @endsection
 
 @section('content')
-<!-- タブ -->
+
 <ul class="tabs">
   <li><a href="{{ route('home') }}">商品一覧</a></li>
   <li class="active">マイリスト</li>
 </ul>
 
-<!-- マイリスト -->
+
 <div id="tab-content-favorites" class="tab-content">
   @if ($favorites)
   @if ($favorites->isEmpty())

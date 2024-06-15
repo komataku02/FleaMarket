@@ -16,7 +16,6 @@
         COACHTECH
       </a>
 
-      <!-- ログイン、会員登録画面の場合のみ表示 -->
       @if (!request()->is('login') && !request()->is('register') && !Auth::check())
       <form action="{{ route('login') }}" method="GET">
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
@@ -26,7 +25,6 @@
       </form>
       @endif
 
-      <!-- ログインしている場合のみ表示 -->
       @auth
       <form action="{{ route('login') }}" method="GET">
         <input type="text" name="keyword" placeholder="なにかお探しですか？">
@@ -39,6 +37,9 @@
           <span class="badge badge-pill badge-danger">{{ \App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
           @endif
         </a>
+        @if (Auth::user()->is_admin)
+        <a href="{{ route('admin.index') }}">管理画面</a>
+        @endif
       </form>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf

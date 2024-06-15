@@ -1,4 +1,4 @@
-/* タブのスタイル */
+
 .tabs {
   display: flex;
   list-style: none;
@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 
-/* 非表示状態 */
+
 .hidden {
   display: none;
 }

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('postal_code')->nullable();
             $table->string('address')->nullable();
             $table->string('building_name')->nullable();
-            $table->boolean('is_admin')->default(false)->after('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

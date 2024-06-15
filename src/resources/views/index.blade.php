@@ -7,13 +7,13 @@
 @endsection
 
 @section('content')
-<!-- タブ -->
+
 <ul class="tabs">
   <li class="active">商品一覧</li>
   <li><a href="{{ route('favorites') }}">マイリスト</a></li>
 </ul>
 
-<!-- 商品一覧 -->
+
 <div id="tab-content-all" class="tab-content">
   <ul>
     @foreach ($items as $item)

@@ -20,7 +20,7 @@ class Item extends Model
 
     protected $appends = ['is_favorite'];
 
-    // 商品一覧を取得するメソッド
+
     public static function getAllItems()
     {
         return self::all();
