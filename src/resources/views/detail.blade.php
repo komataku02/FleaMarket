@@ -6,9 +6,13 @@
 
 @section('content')
 <div class="container">
-  @if (session('message'))
+  @if (session('success'))
   <div class="alert alert-success">
-    {{ session('message') }}
+    {{ session('success') }}
+  </div>
+  @elseif (session('error'))
+  <div class="alert alert-danger">
+    {{ session('error') }}
   </div>
   @endif
 
@@ -25,10 +29,26 @@
         @csrf
         <button type="submit" class="btn btn-primary">カートに入れる</button>
       </form>
+
+      @auth
+      @php
+      $isFavorited = Auth::user()->favorites()->where('item_id', $item->id)->exists();
+      @endphp
+      @if ($isFavorited)
+      <form action="{{ route('items.unfavorite', $item->id) }}" method="POST" class="mt-3">
+        @csrf
+        <button type="submit" class="btn btn-danger">お気に入りから削除する</button>
+      </form>
+      @else
+      <form action="{{ route('items.favorite', $item->id) }}" method="POST" class="mt-3">
+        @csrf
+        <button type="submit" class="btn btn-primary">お気に入りに追加する</button>
+      </form>
+      @endif
+      @endauth
     </div>
   </div>
 
-  <!-- コメントセクション -->
   <div class="card mt-3">
     <div class="card-header">コメント</div>
     <div class="card-body">
@@ -39,7 +59,7 @@
           <img src="{{ Storage::url($comment->user->profile->profile_image_path) }}" alt="プロフィール画像" class="mr-2" style="width: 24px; height: 24px; border-radius: 50%;">
           @endif
           <strong>{{ $comment->user->name }}</strong> {{ $comment->comment }}
-          <!-- 削除ボタンを追加 -->
+
           @if(Auth::id() === $comment->user_id)
           <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="ml-3">
             @csrf

@@ -9,7 +9,7 @@ class AddressController extends Controller
 {
     public function edit(Request $request)
     {
-        // itemIdとpriceをセッションに保存
+
         Session::put('item_id', $request->input('itemId'));
         Session::put('price', $request->input('price'));
 
@@ -32,7 +32,6 @@ class AddressController extends Controller
 
         session(['address' => $address]);
 
-        // itemIdとpriceをセッションから取得してリダイレクトに使用
         $itemId = session('item_id');
         $price = session('price');
 

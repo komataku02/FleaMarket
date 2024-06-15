@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
+use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
@@ -18,6 +19,9 @@ class FavoriteController extends Controller
 
     public function favorite($id)
     {
+        $item = Item::findOrFail($id);
+
+
         $favorite = Favorite::where('item_id', $id)->where('user_id', auth()->id())->first();
 
         if ($favorite) {
@@ -29,11 +33,12 @@ class FavoriteController extends Controller
         $favorite->item_id = $id;
         $favorite->save();
 
-        return back();
+        return back()->with('success', 'お気に入りに追加しました。');
     }
 
     public function unfavorite($id)
     {
+
         $favorite = Favorite::where('item_id', $id)->where('user_id', auth()->id())->first();
 
         if ($favorite) {

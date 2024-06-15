@@ -14,8 +14,8 @@
       @if (optional(Auth::user()->profile)->profile_image_path)
       <img src="{{ Storage::url(Auth::user()->profile->profile_image_path) }}" alt="プロフィール画像" class="mr-3" width="50">
       @endif
-      <p>ようこそ、{{ $user->name }}さん</p> <!-- ユーザー名を表示 -->
-      <p><a href="{{ route('profile.edit') }}">プロフィールを編集</a></p> <!-- プロフィール編集のリンク -->
+      <p>ようこそ、{{ $user->name }}さん</p> 
+      <p><a href="{{ route('profile.edit') }}">プロフィールを編集</a></p>
     </div>
   </div>
   <ul class="tabs">

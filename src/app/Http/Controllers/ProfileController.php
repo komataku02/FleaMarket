@@ -12,7 +12,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // プロフィールが存在しない場合、初期データを作成
         if (!$user->profile) {
             $user->profile()->create([
                 'postal_code' => '',
@@ -37,22 +36,20 @@ class ProfileController extends Controller
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // プロフィール画像のアップロード処理
         if ($request->hasFile('profile_image')) {
-            // 既存のプロフィール画像がある場合は削除
+
             if ($user->profile && $user->profile->profile_image_path) {
                 Storage::disk('public')->delete($user->profile->profile_image_path);
             }
-            // 新しいプロフィール画像を保存
+
             $path = $request->file('profile_image')->store('profile-images', 'public');
             $user->profile->profile_image_path = $path;
         }
 
-        // ユーザー情報の更新
+
         $user->name = $request->input('name');
         $user->save();
 
-        // プロフィール情報の更新
         $user->profile->update([
             'postal_code' => $request->input('postal_code'),
             'address' => $request->input('address'),

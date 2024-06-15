@@ -59,7 +59,6 @@
       <div class="form-group">
         <label for="card-element">カード情報</label>
         <div id="card-element" class="form-control">
-          <!-- Stripe Element will be inserted here -->
         </div>
       </div>
       <div id="card-errors" role="alert" class="text-danger"></div>
@@ -81,7 +80,7 @@
   </form>
 </div>
 
-<!-- Stripe's JavaScript library -->
+
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
