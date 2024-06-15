@@ -30,7 +30,7 @@ PHP 7.4.9
 
 Dockerビルド
 
-1.git clone リンク
+1.git clone リンク  
 2.docker-compose.ymlにmailhog:
     image: mailhog/mailhog
     container_name: mailhog
@@ -43,30 +43,30 @@ Dockerビルド
 networks:
   app-network:
     driver: bridge
-を追記
-3.docker-compose up -d --build
+を追記  
+3.docker-compose up -d --build  
 
 Laravel環境構築
 
-1.docker-compose exec php bash 
-2.composer install
-3.cp .env.example .envを行い、環境変数を変更 
-4.php artisan key:generate 
-5.php artisan mirate 
-6.php artisan db:seed
+1.docker-compose exec php bash  
+2.composer install  
+3.cp .env.example .envを行い、環境変数を変更   
+4.php artisan key:generate  
+5.php artisan mirate  
+6.php artisan db:seed  
 
 ##ER図
 
 ![フリマ](https://github.com/komataku02/FleaMarket/assets/142297650/21e3f2b2-5f10-4ca4-a684-4d612a61e583)
 
 ##アカウントの種類
-管理者（AdminUser）
-メールアドレス：admin@example.com
-パスワード：password
-利用者
-User1
-メールアドレス：user1@example.com
-パスワード：password
-User2
-メールアドレス：user2@example.com
-パスワード：password
+管理者（AdminUser）  
+メールアドレス：admin@example.com  
+パスワード：password  
+利用者  
+User1  
+メールアドレス：user1@example.com  
+パスワード：password  
+User2  
+メールアドレス：user2@example.com  
+パスワード：password  
