@@ -31,18 +31,19 @@ PHP 7.4.9
 Dockerビルド
 
 1.git clone リンク  
-2.docker-compose.ymlにmailhog:
-    image: mailhog/mailhog
-    container_name: mailhog
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+2.docker-compose.ymlに  
+mailhog:   
+    image: mailhog/mailhog  
+    container_name: mailhog  
+    ports:  
+      - "1025:1025"  
+      - "8025:8025"  
+    networks:  
+      - app-network  
+  
+networks:  
+  app-network:  
+    driver: bridge  
 を追記  
 3.docker-compose up -d --build  
 
