@@ -48,13 +48,16 @@ networks:
 
 Laravel環境構築
 
-1.docker-compose exec php bash 2.composer install
+1.docker-compose exec php bash 
+2.composer install
 3.cp .env.example .envを行い、環境変数を変更 
-4.php artisan key:generate 5.php artisan mirate 6.php artisan db:seed
+4.php artisan key:generate 
+5.php artisan mirate 
+6.php artisan db:seed
 
 ##ER図
 
-![画像]()
+![フリマ](https://github.com/komataku02/FleaMarket/assets/142297650/21e3f2b2-5f10-4ca4-a684-4d612a61e583)
 
 ##アカウントの種類
 管理者（AdminUser）
