@@ -53,7 +53,7 @@ Laravel環境構築
 2.composer install  
 3.cp .env.example .envを行い、環境変数を変更   
 4.php artisan key:generate  
-5.php artisan mirate  
+5.php artisan migrate  
 6.php artisan db:seed  
 
 ##ER図
